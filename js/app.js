@@ -32,16 +32,27 @@ function display(array) {
 	deck.innerHTML='';
 
 	cards.forEach(function(value){
-		listElement=document.createElement('li');
+		let listElement=document.createElement('li');
 		listElement.classList.add("card");
 		listElement.innerHTML='<i class="fa ' + value + '"></i>';
 		deck.appendChild(listElement);
-
 	})
 }
 
+function turn() {
+	let cardSign=document.querySelectorAll('.card');
+	console.log(cardSign);
+	for( let i=0; i< cardSign.length; i++){
+		cardSign[i].addEventListener('click', function(event){
+			this.classList.add("open","show");
+	})
+	}
+}
+
+
 shuffle(cards);
 display(cards);
+turn();
 
 
 
