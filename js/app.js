@@ -26,6 +26,25 @@ function shuffle(array) {
 }
 
 
+function display(array) {
+	let listElement=0;
+	const deck=document.querySelector('.deck');
+	deck.innerHTML='';
+
+	cards.forEach(function(value){
+		listElement=document.createElement('li');
+		listElement.classList.add("card");
+		listElement.innerHTML='<i class="fa ' + value + '"></i>';
+		deck.appendChild(listElement);
+
+	})
+}
+
+shuffle(cards);
+display(cards);
+
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
