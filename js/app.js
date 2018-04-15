@@ -28,7 +28,7 @@ function shuffle(array) {
 
 function display(array) {
 	let listElement=0;
-	const deck=document.querySelector('.deck');
+	const deck = document.querySelector('.deck');
 	deck.innerHTML='';
 
 	cards.forEach(function(value){
@@ -45,7 +45,7 @@ function turn() {
 	for( let i=0; i< cardSign.length; i++){
 		cardSign[i].addEventListener('click', function(event){
 			this.classList.add("open","show");
-			addToOpenCards(this);
+			addToOpenCards(i);
 	})
 	}
 }
@@ -53,9 +53,20 @@ function turn() {
 
 function addToOpenCards(card) {
 	openCards.push(card);
+	doMatchCards(card);
 }
 
-
+function doMatchCards(card){
+	console.log(card);
+	console.log(openCards);
+	for(let i=0; i<openCards.length; i++){
+		if (openCards[0] === openCards[1]){
+			console.log('cucu');
+		} else {
+			;
+		}
+	}
+}
 
 
 shuffle(cards);
@@ -68,8 +79,7 @@ turn();
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+ *  - if the list already has another card, check to see if the two cards matchionality in another function that you call from this one)
  *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
