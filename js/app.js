@@ -45,27 +45,37 @@ function turn() {
 	for( let i=0; i< cardSign.length; i++){
 		cardSign[i].addEventListener('click', function(event){
 			this.classList.add("open","show");
-			addToOpenCards(i);
+			addToOpenCards(this);
 	})
 	}
 }
 
 
 function addToOpenCards(card) {
-	openCards.push(card);
 	doMatchCards(card);
+	openCards.push(card);
 }
 
 function doMatchCards(card){
-	console.log(card);
-	console.log(openCards);
-	for(let i=0; i<openCards.length; i++){
-		if (openCards[0] === openCards[1]){
-			console.log('cucu');
-		} else {
-			;
+	if ( openCards.length > 0) {
+		for(let i=0; i<openCards.length; i++){
+			console.log(card.innerHTML +"/"+ openCards[i].innerHTML);
+			if (card.innerHTML === openCards[i].innerHTML){
+				//let cardSign = document.querySelectorAll(".card");
+				card.classList.remove("open","show");
+				openCards[i].classList.remove("open","show");
+				card.classList.add("match");
+				openCards[i].classList.add("match");
+				console.log('cucu');
+			} else {
+				removeCardOpenList();
+			}
 		}
 	}
+}
+
+function removeCardOpenList() {
+	//openCards.classList.remove("open","show");
 }
 
 
