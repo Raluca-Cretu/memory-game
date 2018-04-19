@@ -46,7 +46,7 @@ function turn() {
 		cardSign[i].addEventListener('click', function(event){
 			this.classList.add("open","show");
 			addToOpenCards(this);
-	})
+		})
 	}
 }
 
@@ -61,21 +61,29 @@ function doMatchCards(card){
 		for(let i=0; i<openCards.length; i++){
 			console.log(card.innerHTML +"/"+ openCards[i].innerHTML);
 			if (card.innerHTML === openCards[i].innerHTML){
-				//let cardSign = document.querySelectorAll(".card");
 				card.classList.remove("open","show");
 				openCards[i].classList.remove("open","show");
 				card.classList.add("match");
 				openCards[i].classList.add("match");
-				console.log('cucu');
-			} else {
-				removeCardOpenList();
+				console.log('matched');
 			}
 		}
 	}
 }
 
-function removeCardOpenList() {
-	//openCards.classList.remove("open","show");
+function doNotMatchCards(card) {
+	if ( openCards.length > 0) {
+		for(let i=0; i<openCards.length; i++){
+			console.log(card.innerHTML +"/"+ openCards[i].innerHTML);
+			if (card.innerHTML != openCards[i].innerHTML){
+				console.log('no match');
+				openCards.pop(card);
+				openCards.pop(openCards[i]);
+				card.classList.remove("open","show");
+				openCards[i].classList.remove("open","show");
+			}
+		}
+	}
 }
 
 
