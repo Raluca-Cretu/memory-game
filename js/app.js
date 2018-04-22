@@ -3,6 +3,7 @@
  */
 let cards=["fa-diamond","fa-diamond","fa-paper-plane-o","fa-paper-plane-o","fa-anchor","fa-anchor","fa-bolt","fa-bolt","fa-cube","fa-cube","fa-leaf","fa-leaf","fa-bicycle","fa-bicycle","fa-bomb","fa-bomb"]
 let openCards=[];
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -39,19 +40,24 @@ function display(array) {
 	})
 }
 
+
+
 function turn() {
 	let cardSign=document.querySelectorAll('.card');
 	console.log(cardSign);
 	for( let i=0; i< cardSign.length; i++){
-		cardSign[i].addEventListener('click', function(event){
-			this.classList.add("open","show");
-			addToOpenCards(this);
-		})
+		cardSign[i].addEventListener('click', cardClick);
 	}
+}
+
+function cardClick(){
+	cardSign[i].classList.add("open","show");
+	addToOpenCards();
 }
 
 
 function addToOpenCards(card) {
+	cardSign[i].removeEventListener('click', cardClick);
 	doMatchCards(card);
 	openCards.push(card);
 }
@@ -61,29 +67,25 @@ function doMatchCards(card){
 		for(let i=0; i<openCards.length; i++){
 			console.log(card.innerHTML +"/"+ openCards[i].innerHTML);
 			if (card.innerHTML === openCards[i].innerHTML){
-				card.classList.remove("open","show");
-				openCards[i].classList.remove("open","show");
-				card.classList.add("match");
-				openCards[i].classList.add("match");
-				console.log('matched');
+					card.classList.remove("open","show");
+					openCards[i].classList.remove("open","show");
+					card.classList.add("match");
+					openCards[i].classList.add("match");
+					openCards = [];
+					console.log('matched');
+			} else {
+				setTimeout(doNotMatchCards, 1000);
 			}
 		}
 	}
 }
 
-function doNotMatchCards(card) {
-	if ( openCards.length > 0) {
-		for(let i=0; i<openCards.length; i++){
-			console.log(card.innerHTML +"/"+ openCards[i].innerHTML);
-			if (card.innerHTML != openCards[i].innerHTML){
-				console.log('no match');
-				openCards.pop(card);
-				openCards.pop(openCards[i]);
-				card.classList.remove("open","show");
-				openCards[i].classList.remove("open","show");
-			}
-		}
+function doNotMatchCards() {
+	for(let i=0; i<openCards.length; i++){
+		console.log('no match');
+		openCards[i].classList.remove("open","show");
 	}
+	openCards = [];
 }
 
 
