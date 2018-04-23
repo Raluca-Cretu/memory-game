@@ -51,13 +51,12 @@ function turn() {
 }
 
 function cardClick(){
-	cardSign[i].classList.add("open","show");
-	addToOpenCards();
+	this.classList.add("open","show");
+	addToOpenCards(this);
 }
 
 
 function addToOpenCards(card) {
-	cardSign[i].removeEventListener('click', cardClick);
 	doMatchCards(card);
 	openCards.push(card);
 }
@@ -71,6 +70,7 @@ function doMatchCards(card){
 					openCards[i].classList.remove("open","show");
 					card.classList.add("match");
 					openCards[i].classList.add("match");
+					card.removeEventListener('click', cardClick);
 					openCards = [];
 					console.log('matched');
 			} else {
