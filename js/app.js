@@ -57,6 +57,7 @@ function cardClick(){
 
 
 function addToOpenCards(card) {
+	card.removeEventListener('click', cardClick);
 	doMatchCards(card);
 	openCards.push(card);
 }
@@ -70,7 +71,6 @@ function doMatchCards(card){
 					openCards[i].classList.remove("open","show");
 					card.classList.add("match");
 					openCards[i].classList.add("match");
-					card.removeEventListener('click', cardClick);
 					openCards = [];
 					console.log('matched');
 			} else {
@@ -84,6 +84,7 @@ function doNotMatchCards() {
 	for(let i=0; i<openCards.length; i++){
 		console.log('no match');
 		openCards[i].classList.remove("open","show");
+		openCards[i].addEventListener('click', cardClick);
 	}
 	openCards = [];
 }
