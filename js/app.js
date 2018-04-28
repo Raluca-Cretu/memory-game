@@ -3,6 +3,9 @@
  */
 let cards=["fa-diamond","fa-diamond","fa-paper-plane-o","fa-paper-plane-o","fa-anchor","fa-anchor","fa-bolt","fa-bolt","fa-cube","fa-cube","fa-leaf","fa-leaf","fa-bicycle","fa-bicycle","fa-bomb","fa-bomb"]
 let openCards=[];
+const moves = document.querySelector('.moves');
+moves.innerHTML=0;
+
 
 /*
  * Display the cards on the page
@@ -72,9 +75,10 @@ function doMatchCards(card){
 					card.classList.add("match");
 					openCards[i].classList.add("match");
 					openCards = [];
+					moves.innerHTML++;
 					console.log('matched');
 			} else {
-				setTimeout(doNotMatchCards, 1000);
+				setTimeout(doNotMatchCards, 0500);
 			}
 		}
 	}
@@ -87,7 +91,14 @@ function doNotMatchCards() {
 		openCards[i].addEventListener('click', cardClick);
 	}
 	openCards = [];
+	moves.innerHTML++;
 }
+
+
+//function moveCounter() {
+//	moves.innerHTML = 0;
+//}
+
 
 
 shuffle(cards);
