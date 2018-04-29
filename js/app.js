@@ -99,11 +99,21 @@ function doNotMatchCards() {
 //	moves.innerHTML = 0;
 //}
 
+function starCount() {
+	const starList = document.querySelectorAll('.stars li');
+	const oneStar = document.querySelector('.fa-star');
+	if (moves.innerHTML >= 1 && moves.innerHTML <=3) {
+	    	starList.removeChild(oneStar);
+    	} else if (moves.innerHTML > 3) {
+    		starList.removeChild(oneStar);
+    	}
+}
 
 
 shuffle(cards);
 display(cards);
 turn();
+starCount();
 
 
 
