@@ -76,6 +76,7 @@ function doMatchCards(card){
 					openCards[i].classList.add("match");
 					openCards = [];
 					moves.innerHTML++;
+					starCount();
 					console.log('matched');
 			} else {
 				setTimeout(doNotMatchCards, 0500);
@@ -92,28 +93,27 @@ function doNotMatchCards() {
 	}
 	openCards = [];
 	moves.innerHTML++;
+	starCount();
 }
 
-
-//function moveCounter() {
-//	moves.innerHTML = 0;
-//}
 
 function starCount() {
-	const starList = document.querySelectorAll('.stars li');
-	const oneStar = document.querySelector('.fa-star');
-	if (moves.innerHTML >= 1 && moves.innerHTML <=3) {
-	    	starList.removeChild(oneStar);
-    	} else if (moves.innerHTML > 3) {
-    		starList.removeChild(oneStar);
+	const firstStar = document.querySelectorAll('.fa.fa-star')[0];
+	const secondStar= document.querySelectorAll('.fa.fa-star')[1];
+	const thirdStar= document.querySelectorAll('.fa.fa-star')[2];
+		if (moves.innerHTML >= 8 && moves.innerHTML <=13) {
+			firstStar.style.display="none";
+		} else if (moves.innerHTML > 13 && moves.innerHTML <=15) {
+    		secondStar.style.display="none";
+    	} else if (moves.innerHTML > 15) {
+    		thirdStar.style.display="none"
     	}
 }
-
 
 shuffle(cards);
 display(cards);
 turn();
-starCount();
+//starCount();
 
 
 
