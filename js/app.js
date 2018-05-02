@@ -77,6 +77,7 @@ function doMatchCards(card){
 					openCards = [];
 					moves.innerHTML++;
 					starCount();
+					allCardsMatch()
 					console.log('matched');
 			} else {
 				setTimeout(doNotMatchCards, 0500);
@@ -96,7 +97,7 @@ function doNotMatchCards() {
 	starCount();
 }
 
-
+/*
 function starCount() {
 	const firstStar = document.querySelectorAll('.fa.fa-star')[0];
 	const secondStar= document.querySelectorAll('.fa.fa-star')[1];
@@ -109,11 +110,34 @@ function starCount() {
     		thirdStar.style.display="none"
     	}
 }
+*/
+
+
+function starCount() {
+    const starList = document.querySelector('.stars');
+    const firstStar = document.querySelectorAll('.stars li')[0];
+    const moveCount = moves.innerHTML;
+ 	if (moveCount == 5 || moveCount == 11 || moveCount == 18 ) {
+        starList.removeChild(firstStar);
+        }
+}
+
+
+function allCardsMatch(card) {
+	if (card.classList.contains("match")===true) {
+			const successMessage = document.createElement('div');
+	    	const successP = document.createElement('p');
+	    	successP.textContent = "Congratulation!!! All the cards have been matched. Your score is ...  Do you want to play again?";
+			successMessage.appendChild(successP);
+	    	document.querySelector('.deck').appendChild(successMessage);
+		}
+}
 
 shuffle(cards);
 display(cards);
 turn();
 //starCount();
+//allCardsMatch();
 
 
 
