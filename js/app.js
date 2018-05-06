@@ -123,8 +123,9 @@ function allCardsMatch() {
 	        modal.style.display = "none";
 	    }
 	}
-	btn.onclick = function() {
-	    shuffle();
+	btn.onclick = function(array) {
+	    shuffle(array);
+	    display(array);
 	}
 }
 

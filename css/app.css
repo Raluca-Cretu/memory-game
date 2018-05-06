@@ -170,4 +170,5 @@ h1 {
 #myBtn:hover,
 #myBtn:focus {
     background-color: #0a400a;
+    border-style: hidden;
 }
