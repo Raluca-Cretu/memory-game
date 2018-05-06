@@ -126,16 +126,29 @@ function allCardsMatch() {
 	btn.onclick = function(array) {
 	    shuffle(array);
 	    display(array);
+	    return array
 	}
 }
 
 
 
+function timer() {
+	let countDownDate = new Date().getTime();
+
+	var diffrence = setInterval(function() {
+	    var now = new Date().getTime();
+	    var distance = countDownDate - now;
+		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+	    document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
+	}, 1000);
+}
+
 shuffle(cards);
 display(cards);
 turn();
 allCardsMatch();
-
+timer();
 
 
 /*

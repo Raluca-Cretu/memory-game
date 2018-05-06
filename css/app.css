@@ -150,6 +150,13 @@ h1 {
     cursor: pointer;
 }
 
+/* The timer  styling */
+#timer {
+  text-align: center;
+  font-size: 60px;
+  margin-top:0px;
+}
+
 /* The check sign */
 .fa-check-circle {
     color: green;
