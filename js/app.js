@@ -112,8 +112,21 @@ function allCardsMatch() {
 	const btn = document.getElementById("myBtn");
 	const span = document.getElementsByClassName("close")[0];
 	const cardMatch = document.getElementsByClassName("match");
+	const moveCount = moves.innerHTML;
+	const message = document.getElementById("message");
+	const winMessage = document.createElement('p');
 	if (cardMatch.length === 16) {
-	modal.style.display = "block";
+		modal.style.display = "block";
+		if (moveCount >= 5 ) {
+			message.appendChild(winMessage);
+			winMessage.innerHTML='With ' + moveCount + ' Moves and ' + starCount() + ' Stars \n Uauuu! Your memory is great';
+		} if (moveCount >= 11 ){
+			message.appendChild(winMessage);
+			winMessage.innerHTML='With ' + moveCount + ' Moves and ' + starCount() + ' Stars \n Uauuu! You are good!';
+		} if (moveCount >= 18 ){
+			message.appendChild(winMessage);
+			winMessage.innerHTML='With ' + moveCount + ' Moves and ' + starCount() + ' Stars \n Uauuu!!';
+		}
 	}
 	span.onclick = function() {
 	    modal.style.display = "none";
@@ -123,21 +136,21 @@ function allCardsMatch() {
 	        modal.style.display = "none";
 	    }
 	}
-	btn.onclick = function(array) {
-	    shuffle(array);
-	    display(array);
-	    return array
-	}
+	btn.onclick = function() {
+	    shuffle(cards);
+	    modal.style.display = "none";
+	    display(cards);
+	    turn();
+	 }
 }
 
 
 
 function timer() {
 	let countDownDate = new Date().getTime();
-
 	var diffrence = setInterval(function() {
 	    var now = new Date().getTime();
-	    var distance = countDownDate - now;
+	    var distance = now - countDownDate;
 		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 	    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 	    document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";

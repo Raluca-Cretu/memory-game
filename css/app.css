@@ -87,7 +87,7 @@ h1 {
 
 .score-panel {
     text-align: left;
-    width: 345px;
+    width: 420px;
     margin-bottom: 10px;
 }
 
@@ -151,10 +151,15 @@ h1 {
 }
 
 /* The timer  styling */
+#timerSet {
+    display: inline-block;
+    text-align: center;
+    font-size: 18px;
+    margin: 0px 40px;
+}
+
 #timer {
-  text-align: center;
-  font-size: 60px;
-  margin-top:0px;
+    margin-top:0px;
 }
 
 /* The check sign */
