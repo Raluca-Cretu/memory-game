@@ -3,9 +3,15 @@
  */
 let cards=["fa-diamond","fa-diamond","fa-paper-plane-o","fa-paper-plane-o","fa-anchor","fa-anchor","fa-bolt","fa-bolt","fa-cube","fa-cube","fa-leaf","fa-leaf","fa-bicycle","fa-bicycle","fa-bomb","fa-bomb"]
 let openCards=[];
+const starList = document.querySelector('.stars');
+const firstStar = document.querySelectorAll('.stars li')[0];
 const moves = document.querySelector('.moves');
+let moveCount = moves.innerHTML;
+const winTime= document.getElementById("timer").innerHTML
 moves.innerHTML=0;
-
+let time = setInterval(function(){myTimer() }, 1000);
+let countDownDate = new Date().getTime();
+const restart = document.querySelector('.fa-repeat');
 
 /*
  * Display the cards on the page
@@ -98,9 +104,6 @@ function doNotMatchCards() {
 }
 
 function starCount() {
-    const starList = document.querySelector('.stars');
-    const firstStar = document.querySelectorAll('.stars li')[0];
-    const moveCount = moves.innerHTML;
  	if (moveCount == 5 || moveCount == 11 || moveCount == 18 ) {
         starList.removeChild(firstStar);
         }
@@ -112,20 +115,17 @@ function allCardsMatch() {
 	const btn = document.getElementById("myBtn");
 	const span = document.getElementsByClassName("close")[0];
 	const cardMatch = document.getElementsByClassName("match");
-	const moveCount = moves.innerHTML;
 	const message = document.getElementById("message");
 	const winMessage = document.createElement('p');
 	if (cardMatch.length === 16) {
 		modal.style.display = "block";
+		message.appendChild(winMessage);
 		if (moveCount >= 5 ) {
-			message.appendChild(winMessage);
-			winMessage.innerHTML='With ' + moveCount + ' Moves and ' + starCount() + ' Stars \n Uauuu! Your memory is great';
-		} if (moveCount >= 11 ){
-			message.appendChild(winMessage);
-			winMessage.innerHTML='With ' + moveCount + ' Moves and ' + starCount() + ' Stars \n Uauuu! You are good!';
-		} if (moveCount >= 18 ){
-			message.appendChild(winMessage);
-			winMessage.innerHTML='With ' + moveCount + ' Moves and ' + starCount() + ' Stars \n Uauuu!!';
+			winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + firstStar + ' Stars \n Uauuu! Your memory is great';
+		} else if (moveCount >= 11 ){
+			winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + twoStar + ' Stars \n Uauuu! You are good!';
+		} else if (moveCount >= 18 ){
+			winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + noStar + ' Stars \n Uauuu!!';
 		}
 	}
 	span.onclick = function() {
@@ -146,22 +146,33 @@ function allCardsMatch() {
 
 
 
-function timer() {
-	let countDownDate = new Date().getTime();
-	var diffrence = setInterval(function() {
-	    var now = new Date().getTime();
-	    var distance = now - countDownDate;
-		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-	    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-	    document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
-	}, 1000);
+function myTimer() {
+    var now = new Date().getTime();
+    var distance = now - countDownDate;
+	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
 }
 
+restart.addEventListener('click', restartGame);
+
+function restartGame() {
+    shuffle(cards);
+    display(cards);
+    turn();
+    moveCount ='0';
+    function stopTime() {
+    	clearInterval(time);
+	}
+
+}
+
+
 shuffle(cards);
-display(cards);
+display(cards); 
 turn();
 allCardsMatch();
-timer();
+
 
 
 /*
