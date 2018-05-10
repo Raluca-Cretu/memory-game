@@ -3,12 +3,11 @@
  */
 let cards=["fa-diamond","fa-diamond","fa-paper-plane-o","fa-paper-plane-o","fa-anchor","fa-anchor","fa-bolt","fa-bolt","fa-cube","fa-cube","fa-leaf","fa-leaf","fa-bicycle","fa-bicycle","fa-bomb","fa-bomb"]
 let openCards=[];
-const starList = document.querySelector('.stars');
-const firstStar = document.querySelectorAll('.stars li')[0];
 const moves = document.querySelector('.moves');
 let moveCount = moves.innerHTML;
-const winTime= document.getElementById("timer").innerHTML
 moves.innerHTML=0;
+const winTime= document.getElementById("timer").innerHTML
+
 let time = setInterval(function(){myTimer() }, 1000);
 let countDownDate = new Date().getTime();
 const restart = document.querySelector('.fa-repeat');
@@ -105,6 +104,9 @@ function doNotMatchCards() {
 }
 
 function starCount() {
+	let moveCount = moves.innerHTML;
+	const starList = document.querySelector('.stars');
+	const firstStar = document.querySelectorAll('.stars li')[0];
  	if (moveCount == 5 || moveCount == 11 || moveCount == 18 ) {
         starList.removeChild(firstStar);
         }
@@ -120,6 +122,7 @@ function allCardsMatch() {
 	if (cardMatch.length === 16) {
 		modal.style.display = "block";
 		message.appendChild(winMessage);
+		for(let moveCount=0; moveCount<60; moveCount++){
 			if (moveCount >= 5 ) {
 				winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + firstStar + ' Stars \n Uauuu! Your memory is great';
 			} else if (moveCount >= 11 ){
@@ -127,6 +130,7 @@ function allCardsMatch() {
 			} else if (moveCount >= 18 ){
 				winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + noStar + ' Stars \n Uauuu!!';
 			}
+		}
 	}
 	span.onclick = function() {
 	    modal.style.display = "none";
@@ -169,9 +173,10 @@ function restartGame() {
 
 
 shuffle(cards);
-display(cards); 
+display(cards);
 turn();
 allCardsMatch();
+
 
 
 

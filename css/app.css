@@ -108,6 +108,12 @@ h1 {
     cursor: pointer;
 }
 
+.fa-repeat:hover,
+.fa-repeat:focus {
+    background-color: #0a400a;
+    border-style: hidden;
+}
+
 /*
  * Styles for the Modal
  */
