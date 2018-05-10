@@ -12,6 +12,7 @@ moves.innerHTML=0;
 let time = setInterval(function(){myTimer() }, 1000);
 let countDownDate = new Date().getTime();
 const restart = document.querySelector('.fa-repeat');
+const modal = document.getElementById('myModal');
 
 /*
  * Display the cards on the page
@@ -67,15 +68,15 @@ function cardClick(){
 
 function addToOpenCards(card) {
 	card.removeEventListener('click', cardClick);
-	doMatchCards(card);
 	openCards.push(card);
+	doMatchCards(card);
 }
 
 function doMatchCards(card){
-	if ( openCards.length > 0) {
+	if ( openCards.length ===2) {
 		for(let i=0; i<openCards.length; i++){
 			console.log(card.innerHTML +"/"+ openCards[i].innerHTML);
-			if (card.innerHTML === openCards[i].innerHTML){
+			if (card.innerHTML === openCards[0].innerHTML){
 					card.classList.remove("open","show");
 					openCards[i].classList.remove("open","show");
 					card.classList.add("match");
@@ -111,7 +112,6 @@ function starCount() {
 
 
 function allCardsMatch() {
-	const modal = document.getElementById('myModal');
 	const btn = document.getElementById("myBtn");
 	const span = document.getElementsByClassName("close")[0];
 	const cardMatch = document.getElementsByClassName("match");
@@ -120,13 +120,13 @@ function allCardsMatch() {
 	if (cardMatch.length === 16) {
 		modal.style.display = "block";
 		message.appendChild(winMessage);
-		if (moveCount >= 5 ) {
-			winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + firstStar + ' Stars \n Uauuu! Your memory is great';
-		} else if (moveCount >= 11 ){
-			winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + twoStar + ' Stars \n Uauuu! You are good!';
-		} else if (moveCount >= 18 ){
-			winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + noStar + ' Stars \n Uauuu!!';
-		}
+			if (moveCount >= 5 ) {
+				winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + firstStar + ' Stars \n Uauuu! Your memory is great';
+			} else if (moveCount >= 11 ){
+				winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + twoStar + ' Stars \n Uauuu! You are good!';
+			} else if (moveCount >= 18 ){
+				winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + noStar + ' Stars \n Uauuu!!';
+			}
 	}
 	span.onclick = function() {
 	    modal.style.display = "none";
