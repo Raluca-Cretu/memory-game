@@ -110,8 +110,9 @@ h1 {
 
 .fa-repeat:hover,
 .fa-repeat:focus {
-    background-color: #0a400a;
-    border-style: hidden;
+    color: #808080bd;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 /*

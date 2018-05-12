@@ -3,9 +3,9 @@
  */
 let cards=["fa-diamond","fa-diamond","fa-paper-plane-o","fa-paper-plane-o","fa-anchor","fa-anchor","fa-bolt","fa-bolt","fa-cube","fa-cube","fa-leaf","fa-leaf","fa-bicycle","fa-bicycle","fa-bomb","fa-bomb"]
 let openCards=[];
-const moves = document.querySelector('.moves');
-let moveCount = moves.innerHTML;
-moves.innerHTML=0;
+const moves = document.querySelector(".moves");
+let moveCount = 0;
+
 const winTime= document.getElementById("timer").innerHTML
 
 let time = setInterval(function(){myTimer() }, 1000);
@@ -76,19 +76,20 @@ function doMatchCards(card){
 		for(let i=0; i<openCards.length; i++){
 			console.log(card.innerHTML +"/"+ openCards[i].innerHTML);
 			if (card.innerHTML === openCards[0].innerHTML){
-					card.classList.remove("open","show");
-					openCards[i].classList.remove("open","show");
-					card.classList.add("match");
-					openCards[i].classList.add("match");
-					openCards = [];
-					moves.innerHTML++;
-					starCount();
-					allCardsMatch()
-					console.log('matched');
+				card.classList.remove("open","show");
+				openCards[i].classList.remove("open","show");
+				card.classList.add("match");
+				openCards[i].classList.add("match");
+				openCards = [];
+				allCardsMatch()
+				console.log('matched');
 			} else {
 				setTimeout(doNotMatchCards, 0500);
 			}
 		}
+		moveCount++;
+		moves.innerHTML = moveCount;
+		starCount();
 	}
 }
 
@@ -99,30 +100,27 @@ function doNotMatchCards() {
 		openCards[i].addEventListener('click', cardClick);
 	}
 	openCards = [];
-	moves.innerHTML++;
-	starCount();
 }
 
 function starCount() {
-	let moveCount = moves.innerHTML;
 	const starList = document.querySelector('.stars');
 	const firstStar = document.querySelectorAll('.stars li')[0];
- 	if (moveCount == 5 || moveCount == 11 || moveCount == 18 ) {
+	if (moveCount == 5 || moveCount == 11 || moveCount == 18 ) {
         starList.removeChild(firstStar);
         }
 }
 
-
+//modal.style.display = "block";
 function allCardsMatch() {
 	const btn = document.getElementById("myBtn");
 	const span = document.getElementsByClassName("close")[0];
 	const cardMatch = document.getElementsByClassName("match");
-	const message = document.getElementById("message");
+	const message = document.getElementById('message');
 	const winMessage = document.createElement('p');
+	moves.innerHTML = moveCount;
 	if (cardMatch.length === 16) {
 		modal.style.display = "block";
 		message.appendChild(winMessage);
-		for(let moveCount=0; moveCount<60; moveCount++){
 			if (moveCount >= 5 ) {
 				winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + firstStar + ' Stars \n Uauuu! Your memory is great';
 			} else if (moveCount >= 11 ){
@@ -130,7 +128,6 @@ function allCardsMatch() {
 			} else if (moveCount >= 18 ){
 				winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + noStar + ' Stars \n Uauuu!!';
 			}
-		}
 	}
 	span.onclick = function() {
 	    modal.style.display = "none";
@@ -161,10 +158,11 @@ function myTimer() {
 restart.addEventListener('click', restartGame);
 
 function restartGame() {
+	let moveCount =0;
     shuffle(cards);
     display(cards);
     turn();
-    moveCount ='0';
+
     function stopTime() {
     	clearInterval(time);
 	}
