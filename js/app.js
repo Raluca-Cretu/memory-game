@@ -5,11 +5,11 @@ let cards=["fa-diamond","fa-diamond","fa-paper-plane-o","fa-paper-plane-o","fa-a
 let openCards=[];
 const moves = document.querySelector(".moves");
 let moveCount = 0;
-
 let time = setInterval(function(){myTimer() }, 1000);
 let countDownDate = new Date().getTime();
 const restart = document.querySelector('.fa-repeat');
 const modal = document.getElementById('myModal');
+let stars = document.getElementsByClassName("fa-star");
 
 /*
  * Display the cards on the page
@@ -118,7 +118,6 @@ function allCardsMatch() {
 	modalContent.appendChild(winMessage);
 	const winTime= document.getElementById("timer").innerHTML;
 	moves.innerHTML = moveCount;
-	let stars = document.getElementsByClassName("fa-star");
     if (cardMatch.length === 2) {
 		modal.style.display = "block";
 		if (moveCount >= 5 ) {
@@ -160,16 +159,19 @@ function myTimer() {
 
 restart.addEventListener('click', restartGame);
 
-function restartGame() {
-	let moveCount =0;
-    shuffle(cards);
-    display(cards);
-    turn();
-
-    function stopTime() {
+function stopTime() {
     	clearInterval(time);
 	}
 
+function restartGame() {
+	moves.innerHTML = "0";
+	stars.length = 3;
+    stopTime();
+    document.getElementById("timer").innerHTML = " ";
+    myTimer();
+    shuffle(cards);
+    display(cards);
+    turn();
 }
 
 
