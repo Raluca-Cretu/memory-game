@@ -6,8 +6,6 @@ let openCards=[];
 const moves = document.querySelector(".moves");
 let moveCount = 0;
 
-const winTime= document.getElementById("timer").innerHTML
-
 let time = setInterval(function(){myTimer() }, 1000);
 let countDownDate = new Date().getTime();
 const restart = document.querySelector('.fa-repeat');
@@ -115,19 +113,24 @@ function allCardsMatch() {
 	const btn = document.getElementById("myBtn");
 	const span = document.getElementsByClassName("close")[0];
 	const cardMatch = document.getElementsByClassName("match");
-	const message = document.getElementById('message');
-	const winMessage = document.createElement('p');
+	const modalContent = document.getElementsByClassName("modal-content")[0];
+	const winMessage = document.createElement("p");
+	modalContent.appendChild(winMessage);
+	const winTime= document.getElementById("timer").innerHTML;
 	moves.innerHTML = moveCount;
-	if (cardMatch.length === 16) {
+	let stars = document.getElementsByClassName("fa-star");
+    if (cardMatch.length === 2) {
 		modal.style.display = "block";
-		message.appendChild(winMessage);
-			if (moveCount >= 5 ) {
-				winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + firstStar + ' Stars \n Uauuu! Your memory is great';
-			} else if (moveCount >= 11 ){
-				winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + twoStar + ' Stars \n Uauuu! You are good!';
-			} else if (moveCount >= 18 ){
-				winMessage.innerHTML='With ' + moveCount + ' Moves, in ' + winTime + ' and bla' + noStar + ' Stars \n Uauuu!!';
-			}
+		if (moveCount >= 5 ) {
+			console.log('la');
+			winMessage.textContent='Your memory is great!\nYou won the game with only ' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
+		} else if (moveCount >= 11 ){
+			console.log('lala');
+			winMessage.innerHTML='You are good! \n You won the game with only ' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
+		} else if (moveCount >= 18 ){
+			console.log('lalala');
+			winMessage.innerHTML='Great! \n You won the game with only' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
+		}
 	}
 	span.onclick = function() {
 	    modal.style.display = "none";
