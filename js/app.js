@@ -2,6 +2,7 @@
  * Create a list that holds all of your cards
  */
 let cards=["fa-diamond","fa-diamond","fa-paper-plane-o","fa-paper-plane-o","fa-anchor","fa-anchor","fa-bolt","fa-bolt","fa-cube","fa-cube","fa-leaf","fa-leaf","fa-bicycle","fa-bicycle","fa-bomb","fa-bomb"]
+//Define other global Variables
 let openCards=[];
 const moves = document.querySelector(".moves");
 let moveCount = 0;
@@ -11,12 +12,7 @@ const modal = document.getElementById('myModal');
 let stars = document.getElementsByClassName("fa-star");
 let starList = document.querySelector('.stars');
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+// Display the cards on the page
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -33,12 +29,11 @@ function shuffle(array) {
     return array;
 }
 
-
+//Loop through each card and create its HTML and add each card's HTML to the page
 function display(array) {
 	let listElement=0;
 	const deck = document.querySelector('.deck');
 	deck.innerHTML='';
-
 	cards.forEach(function(value){
 		let listElement=document.createElement('li');
 		listElement.classList.add("card");
@@ -48,16 +43,15 @@ function display(array) {
 }
 
 
-
+// Add an event Listener to each card
 function turn() {
 	let cardSign=document.querySelectorAll('.card');
-	console.log(cardSign);
 	for( let i=0; i< cardSign.length; i++){
 		cardSign[i].addEventListener('click', cardClick);
 	}
-
 }
 
+//When a card is clicked, time starts counting and the card turns around
 function cardClick(){
 	if (!time) {
       countDownDate = new Date().getTime();
@@ -68,7 +62,7 @@ function cardClick(){
 }
 
 
-
+//
 function addToOpenCards(card) {
 	card.removeEventListener('click', cardClick);
 	openCards.push(card);
@@ -125,14 +119,14 @@ function allCardsMatch() {
 	moves.innerHTML = moveCount;
     if (cardMatch.length === 2) {
 		modal.style.display = "block";
-		if (moveCount <= 5 ) {
-			console.log('la');
-			winMessage.textContent='Your memory is great! \nYou won the game with only ' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
-		} else if (moveCount >= 11 ){
-			console.log('lala');
+		stopTime();
+		if (moveCount <= 5) {
+			winMessage.innerHTML='Your memory is great! \nYou won the game with only ' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
+		} else if (moveCount >5){
+			winMessage.innerHTML = "";
 			winMessage.innerHTML='You are good! \nYou won the game with only ' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
-		} else if (moveCount >= 18 ){
-			console.log('lalala');
+		} else if (moveCount >9){
+			winMessage.innerHTML = "";
 			winMessage.innerHTML='Great! \nYou won the game with only' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
 		}
 		btn.onclick = function() {
