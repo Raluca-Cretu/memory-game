@@ -5,11 +5,11 @@ let cards=["fa-diamond","fa-diamond","fa-paper-plane-o","fa-paper-plane-o","fa-a
 let openCards=[];
 const moves = document.querySelector(".moves");
 let moveCount = 0;
-let time = setInterval(function(){myTimer() }, 1000);
-let countDownDate = new Date().getTime();
+let time, countDownDate;
 const restart = document.querySelector('.fa-repeat');
 const modal = document.getElementById('myModal');
 let stars = document.getElementsByClassName("fa-star");
+let starList = document.querySelector('.stars');
 
 /*
  * Display the cards on the page
@@ -55,12 +55,18 @@ function turn() {
 	for( let i=0; i< cardSign.length; i++){
 		cardSign[i].addEventListener('click', cardClick);
 	}
+
 }
 
 function cardClick(){
+	if (!time) {
+      countDownDate = new Date().getTime();
+      time = setInterval(function(){myTimer(countDownDate) }, 1000);
+    }
 	this.classList.add("open","show");
 	addToOpenCards(this);
 }
+
 
 
 function addToOpenCards(card) {
@@ -101,7 +107,6 @@ function doNotMatchCards() {
 }
 
 function starCount() {
-	const starList = document.querySelector('.stars');
 	const firstStar = document.querySelectorAll('.stars li')[0];
 	if (moveCount == 5 || moveCount == 11 || moveCount == 18 ) {
         starList.removeChild(firstStar);
@@ -120,16 +125,20 @@ function allCardsMatch() {
 	moves.innerHTML = moveCount;
     if (cardMatch.length === 2) {
 		modal.style.display = "block";
-		if (moveCount >= 5 ) {
+		if (moveCount <= 5 ) {
 			console.log('la');
-			winMessage.textContent='Your memory is great!\nYou won the game with only ' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
+			winMessage.textContent='Your memory is great! \nYou won the game with only ' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
 		} else if (moveCount >= 11 ){
 			console.log('lala');
-			winMessage.innerHTML='You are good! \n You won the game with only ' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
+			winMessage.innerHTML='You are good! \nYou won the game with only ' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
 		} else if (moveCount >= 18 ){
 			console.log('lalala');
-			winMessage.innerHTML='Great! \n You won the game with only' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
+			winMessage.innerHTML='Great! \nYou won the game with only' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
 		}
+		btn.onclick = function() {
+		modal.style.display = "none";
+	    restartGame();
+	 }
 	}
 	span.onclick = function() {
 	    modal.style.display = "none";
@@ -139,21 +148,16 @@ function allCardsMatch() {
 	        modal.style.display = "none";
 	    }
 	}
-	btn.onclick = function() {
-	    shuffle(cards);
-	    modal.style.display = "none";
-	    display(cards);
-	    turn();
-	 }
+
 }
 
 
 
-function myTimer() {
-    var now = new Date().getTime();
-    var distance = now - countDownDate;
-	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+function myTimer(countDownDate) {
+    let now = new Date().getTime();
+    let distance = now - countDownDate;
+	let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
     document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
 }
 
@@ -161,14 +165,21 @@ restart.addEventListener('click', restartGame);
 
 function stopTime() {
     	clearInterval(time);
-	}
+    	time = null;
+}
 
 function restartGame() {
-	moves.innerHTML = "0";
-	stars.length = 3;
-    stopTime();
-    document.getElementById("timer").innerHTML = " ";
-    myTimer();
+	stopTime();
+	document.getElementById("timer").innerHTML = "";
+	moveCount = 0;
+    moves.innerHTML = moveCount;
+    starList.innerHTML = " ";
+	for(let i=0; i < 3; i++){
+		let listElement=document.createElement('li');
+		listElement.classList.add("fa", "fa-star");
+		listElement.innerHTML='<i></i>';
+		starList.appendChild(listElement);
+	}
     shuffle(cards);
     display(cards);
     turn();
