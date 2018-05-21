@@ -105,9 +105,9 @@ function doNotMatchCards() {
 // The number of stars is counting according to the number of moves
 function starCount() {
 	const firstStar = document.querySelectorAll('.stars li')[0];
-	if (moveCount == 5 || moveCount == 11 || moveCount == 18 ) {
+	if (moveCount == 9 || moveCount == 18 || moveCount == 25 ) {
         starList.removeChild(firstStar);
-        }
+    }
 }
 
 // If all cards have matched, a message will be displayed with the final score (no. of moves and stars plus the time)
@@ -123,18 +123,18 @@ function allCardsMatch() {
     if (cardMatch.length === 2) {
 		modal.style.display = "block";
 		stopTime();
-		if (moveCount <= 5) {
+		if (moveCount <= 9) {
 			winMessage.innerHTML='Your memory is great! <br>You won the game with only ' + moveCount + ' Moves,<br> in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
-		} else if (moveCount >5 && moveCount <= 9){
+		} else if (moveCount >18 && moveCount <= 25){
 			winMessage.innerHTML='You are good! <br>You won the game with only ' + moveCount + ' Moves, <br> in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
-		} else if (moveCount >10){
+		} else if (moveCount >25){
 			winMessage.innerHTML='Great! <br>You won the game with only ' + moveCount + ' Moves, <br> in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
 		}
 		btn.onclick = function() {
 		modal.style.display = "none";
 		winMessage.innerHTML = "";
 	    restartGame();
-	 }
+		}
 	}
 	span.onclick = function() {
 	    modal.style.display = "none";
@@ -144,7 +144,6 @@ function allCardsMatch() {
 	        modal.style.display = "none";
 	    }
 	}
-
 }
 
 // Set up a  Timer
