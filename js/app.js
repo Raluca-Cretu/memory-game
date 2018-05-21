@@ -120,7 +120,7 @@ function allCardsMatch() {
 	modalContent.appendChild(winMessage);
 	const winTime= document.getElementById("timer").innerHTML;
 	moves.innerHTML = moveCount;
-    if (cardMatch.length === 2) {
+    if (cardMatch.length === 16) {
 		modal.style.display = "block";
 		stopTime();
 		if (moveCount <= 9) {
