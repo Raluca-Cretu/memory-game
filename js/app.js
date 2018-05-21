@@ -51,7 +51,7 @@ function turn() {
 	}
 }
 
-//When a card is clicked, time starts counting and the card turns around
+//When a card is clicked, time starts counting and the card turns around plus is added to a openCards list
 function cardClick(){
 	if (!time) {
       countDownDate = new Date().getTime();
@@ -62,17 +62,20 @@ function cardClick(){
 }
 
 
-//
+// Add the clicked card to openCards list, remove the event Listener and check is the card is a match
 function addToOpenCards(card) {
 	card.removeEventListener('click', cardClick);
 	openCards.push(card);
 	doMatchCards(card);
 }
 
+/* Check if the card is a match only if there is already a card in the openCards list.
+* If there are two cards in the openCards list and they match they remain turned. If they don't match they are send to doNotMatch function.
+* Count moves and number of stars from the moment two card are clicked.
+*/
 function doMatchCards(card){
 	if ( openCards.length ===2) {
 		for(let i=0; i<openCards.length; i++){
-			console.log(card.innerHTML +"/"+ openCards[i].innerHTML);
 			if (card.innerHTML === openCards[0].innerHTML){
 				card.classList.remove("open","show");
 				openCards[i].classList.remove("open","show");
@@ -80,7 +83,6 @@ function doMatchCards(card){
 				openCards[i].classList.add("match");
 				openCards = [];
 				allCardsMatch()
-				console.log('matched');
 			} else {
 				setTimeout(doNotMatchCards, 0500);
 			}
@@ -91,15 +93,16 @@ function doMatchCards(card){
 	}
 }
 
+// If the cards in the openCards list do not match they turn back and a new event Listener is added
 function doNotMatchCards() {
 	for(let i=0; i<openCards.length; i++){
-		console.log('no match');
 		openCards[i].classList.remove("open","show");
 		openCards[i].addEventListener('click', cardClick);
 	}
 	openCards = [];
 }
 
+// The number of stars is counting according to the number of moves
 function starCount() {
 	const firstStar = document.querySelectorAll('.stars li')[0];
 	if (moveCount == 5 || moveCount == 11 || moveCount == 18 ) {
@@ -107,7 +110,7 @@ function starCount() {
         }
 }
 
-//modal.style.display = "block";
+// If all cards have matched, a message will be displayed with the final score (no. of moves and stars plus the time)
 function allCardsMatch() {
 	const btn = document.getElementById("myBtn");
 	const span = document.getElementsByClassName("close")[0];
@@ -121,16 +124,15 @@ function allCardsMatch() {
 		modal.style.display = "block";
 		stopTime();
 		if (moveCount <= 5) {
-			winMessage.innerHTML='Your memory is great! \nYou won the game with only ' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
-		} else if (moveCount >5){
-			winMessage.innerHTML = "";
-			winMessage.innerHTML='You are good! \nYou won the game with only ' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
-		} else if (moveCount >9){
-			winMessage.innerHTML = "";
-			winMessage.innerHTML='Great! \nYou won the game with only' + moveCount + ' Moves, in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
+			winMessage.innerHTML='Your memory is great! <br>You won the game with only ' + moveCount + ' Moves,<br> in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
+		} else if (moveCount >5 && moveCount <= 9){
+			winMessage.innerHTML='You are good! <br>You won the game with only ' + moveCount + ' Moves, <br> in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
+		} else if (moveCount >10){
+			winMessage.innerHTML='Great! <br>You won the game with only ' + moveCount + ' Moves, <br> in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
 		}
 		btn.onclick = function() {
 		modal.style.display = "none";
+		winMessage.innerHTML = "";
 	    restartGame();
 	 }
 	}
@@ -145,8 +147,7 @@ function allCardsMatch() {
 
 }
 
-
-
+// Set up a  Timer
 function myTimer(countDownDate) {
     let now = new Date().getTime();
     let distance = now - countDownDate;
@@ -155,12 +156,14 @@ function myTimer(countDownDate) {
     document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
 }
 
-restart.addEventListener('click', restartGame);
-
+// Stop time function
 function stopTime() {
     	clearInterval(time);
     	time = null;
 }
+
+// Restart button functionalities
+restart.addEventListener('click', restartGame);
 
 function restartGame() {
 	stopTime();
@@ -179,11 +182,10 @@ function restartGame() {
     turn();
 }
 
-
 shuffle(cards);
 display(cards);
 turn();
-allCardsMatch();
+
 
 
 

@@ -159,7 +159,7 @@ h1 {
     cursor: pointer;
 }
 
-/* The timer  styling */
+/* The timer styling */
 #timerSet {
     display: inline-block;
     text-align: center;
@@ -172,15 +172,18 @@ h1 {
 }
 
 /* The check sign */
+
 .fa-check-circle {
     color: green;
 }
 
 /* Play Again Button */
+
 #button{
     margin: 15px auto;
     padding: 0px 40px;
 }
+
 #myBtn {
     color: white;
     background-color: green;
@@ -193,6 +196,7 @@ h1 {
     margin: auto;
     display: block;
 }
+
 #myBtn:hover,
 #myBtn:focus {
     background-color: #0a400a;
