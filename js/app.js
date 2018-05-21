@@ -133,6 +133,7 @@ function allCardsMatch() {
 		btn.onclick = function() {
 		modal.style.display = "none";
 		winMessage.innerHTML = "";
+		modalContent.removeChild(winMessage);
 	    restartGame();
 		}
 	}
