@@ -202,3 +202,69 @@ h1 {
     background-color: #0a400a;
     border-style: hidden;
 }
+
+/*Responsive design iwth media screens */
+@media screen and (max-width: 700px) {
+.score-panel {
+    width: 320px;
+}
+.deck {
+    width: 80%;
+    min-height: 530px;
+}
+.deck .card {
+    height: 100px;
+    width: 100px;
+}
+.modal-content {
+    width: 100%;
+}
+}
+@media screen and (max-width: 622px) {
+.score-panel {
+    width: 320px;
+}
+.deck {
+    width: 80%;
+    min-height: 450px;
+}
+.deck .card {
+    height: 85px;
+    width: 85px;
+}
+.modal-content {
+    width: 100%;
+}
+}
+@media screen and (max-width: 534px) {
+.score-panel {
+    width: 320px;
+}
+.deck {
+    width: 80%;
+    min-height: 400px;
+}
+.deck .card {
+    height: 75px;
+    width: 75px;
+}
+.modal-content {
+    width: 100%;
+}
+}
+@media screen and (max-width: 481px) {
+.score-panel {
+    width: 320px;
+}
+.deck {
+    width: 75%;
+    min-height: 350px;
+}
+.deck .card {
+    height: 57px;
+    width: 57px;
+}
+.modal-content {
+    width: 100%;
+}
+}

@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-let cards=["fa-diamond","fa-diamond","fa-paper-plane-o","fa-paper-plane-o","fa-anchor","fa-anchor","fa-bolt","fa-bolt","fa-cube","fa-cube","fa-leaf","fa-leaf","fa-bicycle","fa-bicycle","fa-bomb","fa-bomb"]
+let cards=["fa-diamond","fa-diamond","fa-paper-plane-o","fa-paper-plane-o","fa-anchor","fa-anchor","fa-bolt","fa-bolt","fa-cube","fa-cube","fa-leaf","fa-leaf","fa-bicycle","fa-bicycle","fa-bomb","fa-bomb"];
 //Define other global Variables
 let openCards=[];
 const moves = document.querySelector(".moves");
@@ -31,7 +31,6 @@ function shuffle(array) {
 
 //Loop through each card and create its HTML and add each card's HTML to the page
 function display(array) {
-	let listElement=0;
 	const deck = document.querySelector('.deck');
 	deck.innerHTML='';
 	cards.forEach(function(value){
@@ -39,7 +38,7 @@ function display(array) {
 		listElement.classList.add("card");
 		listElement.innerHTML='<i class="fa ' + value + '"></i>';
 		deck.appendChild(listElement);
-	})
+	});
 }
 
 
@@ -55,7 +54,7 @@ function turn() {
 function cardClick(){
 	if (!time) {
       countDownDate = new Date().getTime();
-      time = setInterval(function(){myTimer(countDownDate) }, 1000);
+      time = setInterval(function(){myTimer(countDownDate); }, 1000);
     }
 	this.classList.add("open","show");
 	addToOpenCards(this);
@@ -82,9 +81,9 @@ function doMatchCards(card){
 				card.classList.add("match");
 				openCards[i].classList.add("match");
 				openCards = [];
-				allCardsMatch()
+				allCardsMatch();
 			} else {
-				setTimeout(doNotMatchCards, 0500);
+				setTimeout(doNotMatchCards, 500);
 			}
 		}
 		moveCount++;
@@ -115,14 +114,14 @@ function allCardsMatch() {
 	const btn = document.getElementById("myBtn");
 	const span = document.getElementsByClassName("close")[0];
 	const cardMatch = document.getElementsByClassName("match");
-	const modalContent = document.getElementsByClassName("modal-content")[0];
-	const winMessage = document.createElement("p");
-	modalContent.appendChild(winMessage);
 	const winTime= document.getElementById("timer").innerHTML;
 	moves.innerHTML = moveCount;
     if (cardMatch.length === 16) {
 		modal.style.display = "block";
 		stopTime();
+		const modalContent = document.getElementsByClassName("modal-content")[0];
+		const winMessage = document.createElement("p");
+		modalContent.appendChild(winMessage);
 		if (moveCount <= 9) {
 			winMessage.innerHTML='Your memory is great! <br>You won the game with only ' + moveCount + ' Moves,<br> in ' + winTime + ' Time and with ' + stars.length + ' Stars.';
 		} else if (moveCount >18 && moveCount <= 25){
@@ -135,16 +134,16 @@ function allCardsMatch() {
 		winMessage.innerHTML = "";
 		modalContent.removeChild(winMessage);
 	    restartGame();
-		}
+		};
 	}
 	span.onclick = function() {
 	    modal.style.display = "none";
-	}
+	};
 	window.onclick = function(event) {
 	    if (event.target == modal) {
 	        modal.style.display = "none";
 	    }
-	}
+	};
 }
 
 // Set up a  Timer
@@ -185,17 +184,3 @@ function restartGame() {
 shuffle(cards);
 display(cards);
 turn();
-
-
-
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards matchionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
